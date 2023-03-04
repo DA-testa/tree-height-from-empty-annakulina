@@ -1,33 +1,47 @@
 # python3
-
+# 221RDB057 Anna Kūliņa 14.grupa
 import sys
 import threading
-import numpy
 
 
 def compute_height(n, parents):
-    # Write this function
     max_height = 0
-    # Your code here
+
+    koks = [[] for _ in range(n)]
+    for i in range(n):
+        if parents[i] == -1:
+            sakne = i
+        else:
+            koks[parents[i]].append(i)
+    rinda = [(sakne, 1)]
+    while rinda:
+        x, augstums1 = rinda.pop(0)
+        if augstums1 > max_height:
+            max_height = augstums1
+        for j in koks[x]:
+            rinda.append((j, augstums1 + 1))
     return max_height
 
 
 def main():
-    # implement input form keyboard and from files
     
-    # let user input file name to use, don't allow file names with letter a
-    # account for github input inprecision
+    fails = input("Ievadiet faila nosaukumu(piemēram test/01 ):")
+    if fails and 'a' not in fails:
+        try:
+            with open(fails, 'r') as fails1:
+                n = int(fails1.readline())
+                parents = list(map(int, fails1.readline().split()))
+        except FileNotFoundError:
+            print("Fails nav atrasts")
+            return
+    else:
+        n = int(input())
+        parents = list(map(int, input().split()))
+    augstums = compute_height(n, parents)
+    print(augstums)
     
-    # input number of elements
-    # input values in one variable, separate with space, split these values in an array
-    # call the function and output it's result
-    pass
 
-# In Python, the default limit on recursion depth is rather low,
-# so raise it here for this problem. Note that to take advantage
-# of bigger stack, we have to launch the computation in a new thread.
 sys.setrecursionlimit(10**7)  # max depth of recursion
 threading.stack_size(2**27)   # new thread will get stack of such size
 threading.Thread(target=main).start()
-main()
-# print(numpy.array([1,2,3]))
+# main()
