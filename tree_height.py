@@ -26,7 +26,7 @@ def compute_height(n, parents):
 def main():
     
     text = input("Ievadiet F testiem vai I manuālai iekavu pārbaudei: ")
-    if 'F' in text:
+    if 'F' in text or 'f' in text:
         fails = input("Ievadiet faila nosaukumu(piemēram test/01 ):")
         if fails and 'a' not in fails:
             try:
@@ -36,7 +36,7 @@ def main():
             except FileNotFoundError:
                 print("Fails nav atrasts")
                 return
-    elif 'I' in text:
+    elif 'I' in text or 'i' in text:
         n = int(input())
         parents = list(map(int, input().split()))
     else:
