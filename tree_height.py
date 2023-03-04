@@ -26,6 +26,7 @@ def compute_height(n, parents):
 def main():
     
     fails = input("Ievadiet faila nosaukumu(piemēram test/01 ):")
+    fails = "test/" + fails
     if fails and 'a' not in fails:
         try:
             with open(fails, 'r') as fails1:
