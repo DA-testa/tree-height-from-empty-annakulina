@@ -25,19 +25,23 @@ def compute_height(n, parents):
 
 def main():
     
-    fails = input("Ievadiet faila nosaukumu(piemēram test/01 ):")
-    fails = "test/" + fails
-    if fails and 'a' not in fails:
-        try:
-            with open(fails, 'r') as fails1:
-                n = int(fails1.readline())
-                parents = list(map(int, fails1.readline().split()))
-        except FileNotFoundError:
-            print("Fails nav atrasts")
-            return
-    else:
+    text = input("Ievadiet F testiem vai I manuālai iekavu pārbaudei: ")
+    if 'F' in text:
+        fails = input("Ievadiet faila nosaukumu(piemēram test/01 ):")
+        if fails and 'a' not in fails:
+            try:
+                with open(fails, 'r') as fails1:
+                    n = int(fails1.readline())
+                    parents = list(map(int, fails1.readline().split()))
+            except FileNotFoundError:
+                print("Fails nav atrasts")
+                return
+    elif 'I' in text:
         n = int(input())
         parents = list(map(int, input().split()))
+    else:
+        print("Nepareiza komanda")
+        return
     augstums = compute_height(n, parents)
     print(augstums)
     
