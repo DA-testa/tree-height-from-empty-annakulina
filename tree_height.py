@@ -30,7 +30,7 @@ def main():
     
     text = input("Ievadiet F testiem vai I manuālai iekavu pārbaudei: ")
     if 'F' in text:
-        fails = input("Ievadiet faila nosaukumu:")
+        fails = input("Ievadiet faila nosaukumu: ")
         if fails and 'a' not in fails:
             try:
                 with open("./test/" + fails) as fails1:
