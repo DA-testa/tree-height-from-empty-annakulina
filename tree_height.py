@@ -6,24 +6,29 @@ import threading
 
 def compute_height(n, parents):
     max_height = 0
-
-    koks = [[] for _ in range(n)]
+    x = [0] * n
     for i in range(n):
-        if parents[i] == -1:
-            sakne = i
-        else:
-            koks[parents[i]].append(i)
-    rinda = [(sakne, 1)]
-    bija = [False] * n
-    while rinda:
-        x, augstums1 = rinda.pop(0)
-        if augstums1 > max_height:
-            max_height = augstums1
-        bija[x] = True
-        for j in koks[x]:
-            if not bija[j]:
-                rinda.append((j, augstums1 + 1))
+        if x[i] != 0:
+            continue
+        aug = 0
+        y = i
+        while y != -1:
+            if x[y] != 0:
+                aug += x[y]
+                break
+            aug += 1
+            y = parents[y]
+        if aug > max_height:
+            max_height = aug
+        y = i
+        while y != -1 and x[y] == 0:
+            x[y] = aug
+            aug -= 1
+            y = parents[y]
     return max_height
+            
+
+
 
 
 def main():
